@@ -4,6 +4,12 @@
     "start_url": "/",
     "icons": [
       {
+        "src": "logo256.png",
+        "type": "image/png",
+        "sizes": "256x256",
+        "purpose": "maskable"
+      },
+      {
         "src": "logo512.png",
         "type": "image/png",
         "sizes": "512x512"
