@@ -5,5 +5,10 @@
 </script>
 
 <h1>Welcome to SvelteKit</h1>
-<p>This page was server side rendered. Your UserAgent is:</p>
+<p>This page was server side rendered.</p>
+
+<p>Your UserAgent is:</p>
 <pre>{data.userAgent}</pre>
+
+<p>Your IP is:</p>
+<pre>{data.ip}</pre>
