@@ -1,17 +1,21 @@
-import admin from "firebase-admin";
+import admin from 'firebase-admin';
 
-const  serviceAccount = JSON.parse(
-  import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_KEY as string
-);
+export const initializeFirebase = () => {
+	const serviceAccount = JSON.parse(import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_KEY as string);
 
-admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: serviceAccount.project_id,
-    clientEmail: serviceAccount.client_email,
-    privateKey: serviceAccount.private_key,
-  }),
-  databaseURL: 'https://que-comemos-hoy-5febf.firebaseio.com',
-});
+	try {
+		admin.initializeApp({
+			credential: admin.credential.cert({
+				projectId: serviceAccount.project_id,
+				clientEmail: serviceAccount.client_email,
+				privateKey: serviceAccount.private_key
+			}),
+			databaseURL: 'https://que-comemos-hoy-5febf.firebaseio.com'
+		});
+	} catch (error) {
+		void 0;
+	}
+};
 
 // const getUser = async (uid: string) => {
 //   const user = await auth().getUser(uid);

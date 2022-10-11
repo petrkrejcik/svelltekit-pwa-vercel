@@ -1,15 +1,6 @@
 <script>
-	// import { authStore } from '$lib/auth/firebaseAuth';
 	import { signInWithPopup } from 'firebase/auth';
 	import { auth, googleAuthProvider } from '$lib/firebase/firebase';
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-
-	$: user = false;
-	$: if (browser && user) {
-		const redirect = history.state?.referer || '/';
-		goto(redirect === '/login' ? '/' : redirect);
-	}
 
 	const login = () => {
 		signInWithPopup(auth, googleAuthProvider).catch((error) => {
