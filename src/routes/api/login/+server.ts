@@ -1,5 +1,5 @@
 import { redirect, type RequestHandler } from '@sveltejs/kit';
-import { auth } from 'firebase-admin';
+import admin from 'firebase-admin';
 import '../../../../server/index.ts';
 import { isLogged } from '../../../../server/isLogged';
 
@@ -21,7 +21,7 @@ export const POST: RequestHandler = async function POST(event) {
     // Set session expiration to 5 days.
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
   
-    const sessionCookie = await auth().createSessionCookie(token, { expiresIn });
+    const sessionCookie = await admin.auth().createSessionCookie(token, { expiresIn });
   
     // console.log('🛎 ', 'sessionCookie', sessionCookie);
   
