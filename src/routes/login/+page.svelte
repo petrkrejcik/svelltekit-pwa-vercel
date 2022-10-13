@@ -1,11 +1,21 @@
 <script>
 	import { signInWithPopup } from 'firebase/auth';
 	import { auth, googleAuthProvider } from '$lib/firebase/firebase';
+	import { goto } from '$app/navigation';
 
-	const login = () => {
-		signInWithPopup(auth, googleAuthProvider).catch((error) => {
-			console.error('Login error:', error.message);
-		});
+	const login = async () => {
+		try {
+			const userCredential = await signInWithPopup(auth, googleAuthProvider).catch((error) => {
+				console.error('Login error:', error.message);
+			});
+			if (!userCredential) {
+				throw new Error('Login failed');
+			}
+			const token = await userCredential.user.getIdToken();
+			goto(`/verifyToken?token=${token}`);
+		} catch (e) {
+			console.log('🛎 ', 'login error', e);
+		}
 	};
 </script>
 

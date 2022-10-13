@@ -1,14 +1,4 @@
 import { auth } from '$lib/firebase/firebase';
+import { inMemoryPersistence, setPersistence } from 'firebase/auth';
 
-auth.onAuthStateChanged(async (user) => {
-	if (user) {
-		const token = await user.getIdToken();
-		fetch('/api/login', {
-			body: JSON.stringify({ token }),
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-	}
-});
+setPersistence(auth, inMemoryPersistence);

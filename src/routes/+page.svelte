@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
+
+	const logout = async () => {
+		goto('logout');
+	};
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -13,5 +18,8 @@
 <p>Your IP is:</p>
 <pre>{data.ip}</pre>
 
-<p>Your are logged as:</p>
-<pre>{data.loggedAs && data.loggedAs.email}</pre>
+{#if data.loggedAs}
+	<p>Your are logged as:</p>
+	<pre>{data.loggedAs.email}</pre>
+	<button on:click={logout}>Logout</button>
+{/if}

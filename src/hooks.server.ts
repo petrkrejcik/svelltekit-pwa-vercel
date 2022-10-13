@@ -6,16 +6,21 @@ initializeFirebase();
 
 export const handle: Handle = async function handle({ event, resolve }) {
 	const url = event.request.url;
-	const isLoginRoute = url.split('/').some((part) => part.startsWith('login'));
+	const isLoginRoute = url
+		.split('/')
+		.some((part) => part.startsWith('login') || part.startsWith('verifyToken'));
 	const user = await getUser(event.cookies.get('session'));
 
-	if (isLoginRoute) {
-		if (user) {
+	if (user) {
+		if (isLoginRoute) {
 			return Response.redirect(`${event.url.origin}`, 302);
 		}
-	} else if (!user) {
-		return Response.redirect(`${event.url.origin}/login`, 302);
+	} else {
+		if (!isLoginRoute) {
+			return Response.redirect(`${event.url.origin}/login`, 302);
+		}
 	}
+
 	event.locals.user = user;
 
 	const response = await resolve(event);
