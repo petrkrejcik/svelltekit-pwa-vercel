@@ -19,7 +19,14 @@
 <pre>{data.ip}</pre>
 
 {#if data.loggedAs}
-	<p>Your are logged as:</p>
-	<pre>{data.loggedAs.email}</pre>
+	<p>Your are logged as: {data.loggedAs}</p>
 	<button on:click={logout}>Logout</button>
+
+	<div>
+		{#if data.groups.length}
+			Groups: {data.groups.length}
+		{:else}
+			No groups
+		{/if}
+	</div>
 {/if}

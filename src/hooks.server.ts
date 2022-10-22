@@ -1,8 +1,5 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
 import { getUser } from '$server/getUser';
-import { initializeFirebase } from '../server/initializeFirebase';
-
-initializeFirebase();
 
 export const handle: Handle = async function handle({ event, resolve }) {
 	const url = event.request.url;

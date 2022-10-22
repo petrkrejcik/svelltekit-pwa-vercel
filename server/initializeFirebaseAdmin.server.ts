@@ -1,20 +1,24 @@
-import admin from 'firebase-admin';
+import firebaseAdmin from 'firebase-admin';
 
-export const initializeFirebase = () => {
+let admin: typeof firebaseAdmin;
+
+export const getAdmin = () => {
+	if (admin) {
+		return admin;
+	}
+
 	const serviceAccount = JSON.parse(import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_KEY as string);
 
-	try {
-		admin.initializeApp({
-			credential: admin.credential.cert({
-				projectId: serviceAccount.project_id,
-				clientEmail: serviceAccount.client_email,
-				privateKey: serviceAccount.private_key
-			}),
-			databaseURL: 'https://que-comemos-hoy-5febf.firebaseio.com'
-		});
-	} catch (error) {
-		void 0;
-	}
+	firebaseAdmin.initializeApp({
+		credential: firebaseAdmin.credential.cert({
+			projectId: serviceAccount.project_id,
+			clientEmail: serviceAccount.client_email,
+			privateKey: serviceAccount.private_key
+		}),
+		databaseURL: 'https://que-comemos-hoy-5febf.firebaseio.com'
+	});
+	admin = firebaseAdmin;
+	return admin;
 };
 
 // const getUser = async (uid: string) => {

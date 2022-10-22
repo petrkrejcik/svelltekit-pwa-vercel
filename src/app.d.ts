@@ -4,7 +4,7 @@
 // and what to do when importing types
 declare namespace App {
 	interface Locals {
-		user: import('firebase-admin/lib/auth/token-verifier').DecodedIdToken | false;
+		user: import('firebase/auth').UserCredential['user'] | false;
 	}
 	// interface PageData {}
 	// interface Error {}
