@@ -1,4 +1,4 @@
-import { auth } from '$lib/firebase/firebase';
+import getAuth from '$lib/firebase/getAuth';
 import { inMemoryPersistence, setPersistence } from 'firebase/auth';
 
-setPersistence(auth, inMemoryPersistence);
+setPersistence(getAuth(), inMemoryPersistence);

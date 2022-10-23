@@ -1,12 +1,13 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
-import { getUser } from '$server/getUser';
+import { SESSION_COOKIE_NAME } from '$lib/consts';
+import { getUser } from '$lib/auth/getUser.server';
 
 export const handle: Handle = async function handle({ event, resolve }) {
 	const url = event.request.url;
 	const isLoginRoute = url
 		.split('/')
-		.some((part) => part.startsWith('login') || part.startsWith('verifyToken'));
-	const user = await getUser(event.cookies.get('session'));
+		.some((part) => part.startsWith('login') || part.startsWith('initSession'));
+	const user = await getUser(event.cookies.get(SESSION_COOKIE_NAME));
 
 	if (user) {
 		if (isLoginRoute) {

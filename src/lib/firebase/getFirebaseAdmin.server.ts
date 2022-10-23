@@ -2,7 +2,7 @@ import firebaseAdmin from 'firebase-admin';
 
 let admin: typeof firebaseAdmin;
 
-export const getAdmin = () => {
+export const getFirebaseAdmin = () => {
 	if (admin) {
 		return admin;
 	}
