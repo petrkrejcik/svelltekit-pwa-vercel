@@ -1,4 +1,4 @@
-import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { getApp, initializeApp, type FirebaseApp } from 'firebase/app';
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY_NON_RESTRICTED as string,
@@ -17,7 +17,11 @@ export default () => {
 		return firebaseApp;
 	}
 
-	firebaseApp = initializeApp(firebaseConfig);
+	try {
+		firebaseApp = getApp();
+	} catch (e) {
+		firebaseApp = initializeApp(firebaseConfig);
+	}
 
 	return firebaseApp;
 };

@@ -11,6 +11,7 @@ export const load: PageServerLoad = async function load(event) {
 		return {};
 	}
 
+	console.log('🛎 ', 'get admin');
 	const { uid } = await getFirebaseAdmin().auth().verifyIdToken(token);
 	const customToken = await getFirebaseAdmin().auth().createCustomToken(uid);
 

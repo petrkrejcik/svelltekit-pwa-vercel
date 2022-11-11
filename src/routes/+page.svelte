@@ -18,7 +18,7 @@
 				throw new Error('Login failed');
 			}
 			const token = await userCredential.user.getIdToken();
-			goto(`/initSession?${SESSION_COOKIE_NAME}=${token}`);
+			await goto(`/initSession?${SESSION_COOKIE_NAME}=${token}`);
 		} catch (e) {
 			console.log('🛎 ', 'login error', e);
 		}
@@ -36,16 +36,12 @@
 
 <p><strong>Your are logged as:</strong></p>
 {#if data.loggedAs}
-	<p>{data.loggedAs} (<a href="/logout">Logout</a>)</p>
+	<p>{data.loggedAs} (<a href="/logout" rel="external">Logout</a>)</p>
 {:else}
 	<button on:click={login}>Sign In with Google</button>
 {/if}
 
 <p><strong>Firestore query:</strong></p>
 <p>
-	{#if data.groups.length}
-		Groups: {data.groups.length}
-	{:else}
-		N/A
-	{/if}
+	Private data: {data.privateData.error || data.privateData.data}
 </p>
