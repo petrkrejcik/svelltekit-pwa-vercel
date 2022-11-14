@@ -1,6 +1,6 @@
-import getFirebaseApp from '$lib/firebase/getFirebaseApp';
+import { getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 export default () => {
-	return getAuth(getFirebaseApp());
+	return getAuth(getApp());
 };

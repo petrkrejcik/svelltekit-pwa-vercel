@@ -1,4 +1,4 @@
-import getAuth from '$lib/firebase/getAuth.server';
+import getAuth from '$lib/firebase/getAuth';
 import { signInWithCustomToken, type UserCredential } from 'firebase/auth';
 
 export const getUser = async (token?: string | null): Promise<UserCredential['user'] | false> => {

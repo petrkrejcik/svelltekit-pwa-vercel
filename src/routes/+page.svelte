@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 	import { goto } from '$app/navigation';
-	import { SESSION_COOKIE_NAME } from '$lib/consts';
+	import { ID_TOKEN_QUERY_PARAM, REFRESH_TOKEN_QUERY_PARAM } from '$lib/consts';
 	import getAuth from '$lib/firebase/getAuth';
 
 	export let data: PageData;
@@ -18,9 +18,23 @@
 				throw new Error('Login failed');
 			}
 			const token = await userCredential.user.getIdToken();
-			await goto(`/initSession?${SESSION_COOKIE_NAME}=${token}`);
+			const refershToken = await userCredential.user.refreshToken;
+			console.log('🛎 ', 'token', token);
+			console.log('🛎 ', 'refresh', refershToken);
+			goto(
+				`/initSession?${ID_TOKEN_QUERY_PARAM}=${token}&${REFRESH_TOKEN_QUERY_PARAM}=${refershToken}`
+			);
 		} catch (e) {
 			console.log('🛎 ', 'login error', e);
+		}
+	};
+
+	const getQueryStatus = (query: PageData['privateData']) => {
+		if (query.data) {
+			return '✅';
+		} else {
+			console.log('🛎 ', 'err', query.error);
+			return '❌';
 		}
 	};
 </script>
@@ -42,6 +56,9 @@
 {/if}
 
 <p><strong>Firestore query:</strong></p>
-<p>
-	Private data: {data.privateData.error || data.privateData.data}
-</p>
+<div>
+	Public data: {getQueryStatus(data.publicData)}
+</div>
+<div>
+	Restricted data: {getQueryStatus(data.privateData)}
+</div>

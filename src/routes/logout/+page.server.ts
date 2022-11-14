@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { SESSION_COOKIE_NAME } from '$lib/consts';
 import type { PageServerLoad } from './$types';
-import getAuth from '$lib/firebase/getAuth.server';
+import getAuth from '$lib/firebase/getAuth';
 
 export const load: PageServerLoad = async function load(event) {
 	console.log('🛎 ', 'logout');

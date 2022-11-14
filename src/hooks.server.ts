@@ -1,9 +1,14 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
-import { SESSION_COOKIE_NAME } from '$lib/consts';
-import { getUser } from '$lib/auth/getUser.server';
+// import { getUser } from '$lib/auth/getUser.server';
+import { verifySession } from '$lib/auth/signIn.server';
+import initialiseFirebase from '$lib/firebase/initialiseFirebase';
+
+const UNPROTECTED_URIS = ['/login'];
 
 export const handle: Handle = async function handle({ event, resolve }) {
-	const user = await getUser(event.cookies.get(SESSION_COOKIE_NAME));
+	await initialiseFirebase();
+
+	const user = await verifySession(event); // Call only if URL is not in UNPROTECTED_URIS
 
 	event.locals.user = user;
 
