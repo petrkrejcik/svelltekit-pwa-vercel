@@ -19,8 +19,6 @@
 			}
 			const token = await userCredential.user.getIdToken();
 			const refershToken = await userCredential.user.refreshToken;
-			console.log('🛎 ', 'token', token);
-			console.log('🛎 ', 'refresh', refershToken);
 			goto(
 				`/initSession?${ID_TOKEN_QUERY_PARAM}=${token}&${REFRESH_TOKEN_QUERY_PARAM}=${refershToken}`
 			);

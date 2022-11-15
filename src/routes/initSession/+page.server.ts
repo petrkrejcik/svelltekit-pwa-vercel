@@ -11,10 +11,6 @@ export const load: PageServerLoad = async function load(event) {
 		return {};
 	}
 
-	// console.log('🛎 ', 'get admin');
-	// const { uid } = await getFirebaseAdmin().auth().verifyIdToken(idToken);
-	// const customToken = await getFirebaseAdmin().auth().createCustomToken(uid);
-
 	event.cookies.set(ID_TOKEN_QUERY_PARAM, idToken, {
 		path: '/'
 	});

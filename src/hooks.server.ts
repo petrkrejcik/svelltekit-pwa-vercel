@@ -1,6 +1,6 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
 // import { getUser } from '$lib/auth/getUser.server';
-import { verifySession } from '$lib/auth/signIn.server';
+import { verifySession } from '$lib/auth/verifySession.server';
 import initialiseFirebase from '$lib/firebase/initialiseFirebase';
 
 const UNPROTECTED_URIS = ['/login'];
