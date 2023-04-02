@@ -4,9 +4,10 @@ import {getAuth} from 'firebase-admin/auth'
 export const GET = (async ({ url }) => {
   console.log('🛎 ', 'running server endpoint', url.href);
 
-  console.log('🛎 ', 'getting admin');
   try {
+    console.log('🛎 ', 'getting admin');
     const admin = getFirebaseAdmin()
+    console.log('🛎 ', 'admin created');
     try {
       const expiresIn = 60 * 60 * 24 * 5 * 1000;
       await getAuth(admin).createSessionCookie('aa', { expiresIn });
